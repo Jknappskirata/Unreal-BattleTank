@@ -19,7 +19,7 @@ void ATankPlayerController::BeginPlay()
 void ATankPlayerController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	UE_LOG(LogTemp, Warning, TEXT("Tick Tick"))
+	//UE_LOG(LogTemp, Warning, TEXT("Tick Tick"))
 	AimTowardsCrosshair();
 
 }
@@ -36,9 +36,9 @@ void ATankPlayerController::AimTowardsCrosshair() {
 		return;
 		}
 
-	FVector OutHitLocation; //Out Parameter
-	if (GetSightRayHitLocation(OutHitLocation)) { //has side effect, will line trace
-		//UE_LOG(LogTemp, Warning, TEXT("Hit Location: %s"), *OutHitLocation.ToString());
+	FVector HitLocation; //Out Parameter
+	if (GetSightRayHitLocation(HitLocation)) { //has side effect, will line trace
+		UE_LOG(LogTemp, Warning, TEXT("Hit Location: %s"), *HitLocation.ToString());
 	}
 	
 	
@@ -48,7 +48,7 @@ void ATankPlayerController::AimTowardsCrosshair() {
 
 }
 
-bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) const {
+bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const {
 
 	int32 ViewportSizeX, VieportSizeY;
 	GetViewportSize(ViewportSizeX, VieportSizeY);
@@ -59,7 +59,8 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 	FVector LookDirection;
 
 	if (GetLookDirection(ScreenLocation, LookDirection)) {
-		UE_LOG(LogTemp, Warning, TEXT("look direction is: %s"), *LookDirection.ToString());
+		//UE_LOG(LogTemp, Warning, TEXT("look direction is: %s"), *LookDirection.ToString());
+		GetLookVectorHitLocation(LookDirection,HitLocation);
 	}
 
 	return true;
@@ -74,5 +75,22 @@ bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& 
 	return DeprojectScreenPositionToWorld(ScreenLocation.X, ScreenLocation.Y, CameraWorldLocation,LookDirection);
 		
 	
+}
+
+bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const {
+	
+
+	FHitResult HitResult;
+	auto StartLocation = PlayerCameraManager->GetCameraLocation();
+	auto EndLocation = StartLocation + (LookDirection * LineTraceRange);
+	if (GetWorld()->LineTraceSingleByChannel(HitResult, StartLocation, EndLocation, ECollisionChannel::ECC_Visibility)
+		) 
+	{
+		HitLocation = HitResult.Location;
+		return true;
+	}
+	
+	return false;
+
 }
 
