@@ -1,7 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "Tank.h"
+#include "Public/TankAimingComponent.h"
+
+
+
 
 // Sets default values
 ATank::ATank()
@@ -25,6 +27,12 @@ void ATank::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void ATank::SetBarrelReference(UStaticMeshComponent * BarrelToSet)
+{
+
+	TankAimingComponent->SetBarrelReference(BarrelToSet);
 }
 
 // Called to bind functionality to input
