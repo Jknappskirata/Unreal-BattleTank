@@ -40,4 +40,7 @@ private:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UPROPERTY(EditAnywhere, Category = Firing)
+	float launchSpeed = 10000;//translates in unreal to 1000 m/s
+
 };
