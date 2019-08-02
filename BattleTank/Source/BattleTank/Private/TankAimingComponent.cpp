@@ -1,7 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "..\Public\TankAimingComponent.h"
+
 #include "Components/SceneComponent.h"
+#include "../Public/TankAimingComponent.h"
+
 
 
 // Sets default values for this component's properties
@@ -36,7 +38,21 @@ void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent* BarrelToSet)
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float lauchSpeed) {
 
+	if (!Barrel) {
+		return;
+	}
 	
-	UE_LOG(LogTemp, Warning, TEXT("Firing at %f"), lauchSpeed);
+	FVector OutLaunchVelocity;//Out Parameter
+	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
+
+	//Make the OutLaunchVelocity
+	if (UGameplayStatics::SuggestProjectileVelocity(this, OutLaunchVelocity, StartLocation, HitLocation, lauchSpeed, false, 0, 0, ESuggestProjVelocityTraceOption::DoNotTrace)) 
+	{
+
+		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
+		auto TankName = GetOwner()->GetName();
+		UE_LOG(LogTemp, Warning, TEXT(" %s Firing at %s"), *TankName, *AimDirection.ToString());
+	}
+
 }
 

@@ -3,8 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Kismet/GameplayStatics.h"
 #include "Components/ActorComponent.h"
 #include "Components/StaticMeshComponent.h"
+
 #include "TankAimingComponent.generated.h"
 
 
@@ -34,3 +36,4 @@ private:
 	UStaticMeshComponent* Barrel = nullptr;
 		
 };
+
