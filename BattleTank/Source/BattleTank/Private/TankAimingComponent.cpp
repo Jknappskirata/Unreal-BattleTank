@@ -2,6 +2,7 @@
 
 
 #include "Components/SceneComponent.h"
+#include "TankBarrel.h"
 #include "../Public/TankAimingComponent.h"
 
 
@@ -17,7 +18,7 @@ UTankAimingComponent::UTankAimingComponent()
 }
 
 
-void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent* BarrelToSet)
+void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
 	Barrel = BarrelToSet;
 }
@@ -68,6 +69,8 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float lauchSpeed) {
 
 
 		//Perform move from curent vector of barrel to calculated vector this frame
+
+		Barrel->Elevate(5);
 
 	}
 
