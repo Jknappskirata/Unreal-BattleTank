@@ -1,9 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
+#include "../Public/TankAimingComponent.h"
 #include "Components/SceneComponent.h"
 #include "TankBarrel.h"
-#include "../Public/TankAimingComponent.h"
+
 
 
 
@@ -39,12 +39,9 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float lauchSpeed) {
 
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
-
-
-
-
-
-
+	}
+	else {
+		UE_LOG(LogTemp,Warning,TEXT("No aiming soultion found at this time"))
 	}
 }
 
@@ -65,7 +62,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float lauchSpeed) {
 		//Calculate a target vector
 
 		auto DeltaRotator = AimAsRotator - BarrelRotation;
-		UE_LOG(LogTemp, Warning, TEXT("AimRoator: %s"), *DeltaRotator.ToString());
+		//UE_LOG(LogTemp, Warning, TEXT("AimRoator: %s"), *DeltaRotator.ToString());
 
 
 		//Perform move from curent vector of barrel to calculated vector this frame

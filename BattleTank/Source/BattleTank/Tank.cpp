@@ -23,11 +23,6 @@ void ATank::BeginPlay()
 }
 
 // Called every frame
-void ATank::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
 
 void ATank::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
