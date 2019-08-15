@@ -33,15 +33,17 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float lauchSpeed) {
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
 
 	//Make the OutLaunchVelocity
-	bool aimSolution = UGameplayStatics::SuggestProjectileVelocity(this, OutLaunchVelocity, StartLocation, HitLocation, lauchSpeed, ESuggestProjVelocityTraceOption::DoNotTrace);
+	bool aimSolution = UGameplayStatics::SuggestProjectileVelocity(this, OutLaunchVelocity, StartLocation, HitLocation, lauchSpeed, false, 0, 0, ESuggestProjVelocityTraceOption::DoNotTrace,FCollisionResponseParams::DefaultResponseParam,TArray < AActor * >(),false);
 	if (aimSolution)
 	{
-
+		auto Time = GetWorld()->GetTimeSeconds();
+		UE_LOG(LogTemp, Warning, TEXT("%f Aiming Solution found at"), Time);
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
 	}
 	else {
-		UE_LOG(LogTemp,Warning,TEXT("No aiming soultion found at this time"))
+		auto Time = GetWorld()->GetTimeSeconds();
+		UE_LOG(LogTemp, Warning, TEXT("%f No aim solve"), Time);
 	}
 }
 

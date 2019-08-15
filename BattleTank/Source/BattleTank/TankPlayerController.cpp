@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "TankPlayerController.h"
+#include "Tank.h"
+
 void ATankPlayerController::BeginPlay()
 {
 	auto ControlledTank = GetControlledTank();
@@ -61,9 +61,11 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const {
 	if (GetLookDirection(ScreenLocation, LookDirection)) {
 		//UE_LOG(LogTemp, Warning, TEXT("look direction is: %s"), *LookDirection.ToString());
 		GetLookVectorHitLocation(LookDirection,HitLocation);
+		return true;
 	}
+	return false;
 
-	return true;
+	
 	
 
 }

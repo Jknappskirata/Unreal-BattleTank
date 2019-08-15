@@ -1,13 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
-
-#include "CoreMinimal.h"
-#include "Tank.h"
-#include "Engine/World.h"
 #include "GameFramework/PlayerController.h"
+#include "CoreMinimal.h"
+#include "Engine/World.h"
+
 #include "Runtime/Engine/Classes/Engine/EngineTypes.h"
 #include "TankPlayerController.generated.h"//Must be last include
+
+class ATank;
 
 /**
  * 

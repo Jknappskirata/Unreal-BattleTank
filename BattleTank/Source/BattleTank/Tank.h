@@ -4,9 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-#include "Public/TankAimingComponent.h"
 #include "Tank.generated.h"
 
+class UTankAimingComponent;
 class UTankBarrel;//Forward Declaration
 
 UCLASS()
