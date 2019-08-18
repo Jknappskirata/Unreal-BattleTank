@@ -69,7 +69,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float lauchSpeed) {
 
 		//Perform move from curent vector of barrel to calculated vector this frame
 
-		Barrel->Elevate(5);
+		Barrel->Elevate(DeltaRotator.Pitch);
 
 	}
 
